@@ -162,6 +162,7 @@ function Wallet({ }) {
     // console.log(profiles.data.profiles.items)
 
     // setProfile(profiles.data.profiles.items[0])
+    setPicker(false)
 
   }, [profiles.data])
 
@@ -253,8 +254,6 @@ function Wallet({ }) {
       connectWallet();
   }}, [])
 
-  console.log(wallet)
-
   return (
     <WalletContainer>
     { wallet.signer
@@ -270,7 +269,7 @@ function Wallet({ }) {
           }
         </AccountPicker>
         <Address>{wallet.address.substring(0, 6)}...{wallet.address.substring(38, wallet.address.length)}</Address>
-        <UserIcon link={true} selected={openPicker} href={profiles.data?.profiles.items[0]?.picture?.original?.url} />
+        <UserIcon link={true} selected={openPicker} href={profiles.data?.profiles.items[0]?.picture?.original?.url} onClick={() => setPicker(!openPicker)} />
     </>
     : <Button onClick={connectWallet} >Connect Wallet</Button>
     }

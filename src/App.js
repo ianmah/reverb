@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import styled from "styled-components";
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faHouse, faUser, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faUser, faMagnifyingGlass, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { WalletContextProvider } from "./utils/wallet";
 import Wallet from "./components/Wallet";
 import ApolloProvider from "./components/Apollo";
 import Card from "./components/Card";
+import { useWallet } from "./utils/wallet";
 import Song from "./pages/Song";
 import NewArtist from "./pages/NewArtist";
 import Outlet from "./pages/Outlet";
 import GlobalStyle from "./theme/GlobalStyle";
 import ThemeProvider from "./theme/ThemeProvider";
 
-library.add(faHouse, faUser, faMagnifyingGlass)
+library.add(faHouse, faUser, faMagnifyingGlass, faSignOutAlt)
 
 const Container = styled(Card)`
     max-width: 500px;
@@ -47,8 +47,8 @@ const BottomNav = styled.div`
 `
 
 function App() {
+    const { setAuthToken } = useWallet()
     return (
-        <WalletContextProvider>
             <ApolloProvider>
                 <ThemeProvider>
                     <GlobalStyle />
@@ -72,10 +72,15 @@ function App() {
                         <FontAwesomeIcon icon="fa-house" size="lg" />
                         <FontAwesomeIcon icon="fa-magnifying-glass" size="lg"/>
                         <FontAwesomeIcon icon="fa-user" size="lg"/>
+                        <FontAwesomeIcon icon="fa-sign-out-alt" size="lg" onClick={() => {
+                            window.sessionStorage.removeItem('lensToken')
+                            window.sessionStorage.removeItem('signature')
+                            setAuthToken('')
+                            console.log('logged out')
+                        }}/>
                     </BottomNav>
                 </ThemeProvider>
             </ApolloProvider>
-        </WalletContextProvider>
     );
 }
 
