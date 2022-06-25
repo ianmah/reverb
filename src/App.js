@@ -11,6 +11,7 @@ import Card from "./components/Card";
 import { useWallet } from "./utils/wallet";
 import Song from "./pages/Song";
 import NewArtist from "./pages/NewArtist";
+import Swap from "./pages/Swap";
 import Outlet from "./pages/Outlet";
 import GlobalStyle from "./theme/GlobalStyle";
 import ThemeProvider from "./theme/ThemeProvider";
@@ -68,6 +69,7 @@ function App() {
                             <Route path="/" element={<>
                                 <h1>Home</h1>
                             </>}/>
+                            <Route path="swap" element={<Swap/>}/>
                         </Routes>
                     </Container>
                     <BottomNav>

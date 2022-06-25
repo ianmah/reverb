@@ -14,6 +14,7 @@ import Button from './Button'
 import Login from './Login'
 import LensHub from '../abi/LensHub.json'
 import { useWallet } from '../utils/wallet'
+import { SelectProviderResponse } from '@coinbase/wallet-sdk/dist/relay/Web3Response'
 
 const WalletContainer = styled.div`
   display: flex;
@@ -125,7 +126,7 @@ const Profile = ({ profile, handleClick }) => {
 
 
 function Wallet({ }) {
-  const { wallet, setWallet, setLensHub, authToken } = useWallet()
+  const { wallet, setWallet, setLensHub, authToken, setProvider } = useWallet()
   const [getProfiles, profiles] = useLazyQuery(GET_PROFILES)
   const [openPicker, setPicker] = useState(false)
 
@@ -195,6 +196,7 @@ function Wallet({ }) {
     const instance = await web3Modal.connect();
 
     const provider = new ethers.providers.Web3Provider(instance)
+    setProvider(provider)
     // const provider = new ethers.providers.Web3Provider(window.ethereum)
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner()

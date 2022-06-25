@@ -8,7 +8,8 @@ const PlyrComponent = ({playbackId}) => {
     const playerInstance = useRef();
 
     useLayoutEffect(() => {
-        const source = `https://cdn.livepeer.com/hls/${playbackId}/index.m3u8`;
+        // const source = `https://cdn.livepeer.com/hls/${playbackId}/index.m3u8`;
+        const source = `https://livepeercdn.com/asset/1d464iglk9i336dk/video`
         playerInstance.current = new Plyr(video.current);
         const hls = new Hls();
         hls.loadSource(source);
