@@ -23,13 +23,13 @@ const WalletContainer = styled.div`
 `
 
 const Address = styled.code`
-  box-shadow: 0px 4px 12px rgba(236, 176, 178, 0.5);
+  box-shadow: 0px 2px 10px rgba(201, 107, 255, 0.5);
   border-radius: 100px;
   height: 34px;
   display: flex;
   align-items: center;
   padding: 0 .6em;
-  background: white;
+  background: ${p=>p.theme.lightBackground};
 `
 
 export const UserIcon = styled.div`
@@ -162,6 +162,7 @@ function Wallet({ }) {
     // console.log(profiles.data.profiles.items)
 
     // setProfile(profiles.data.profiles.items[0])
+    setPicker(false)
 
   }, [profiles.data])
 
@@ -268,7 +269,7 @@ function Wallet({ }) {
           }
         </AccountPicker>
         <Address>{wallet.address.substring(0, 6)}...{wallet.address.substring(38, wallet.address.length)}</Address>
-        <UserIcon link={true} selected={openPicker} href={profiles.data?.profiles.items[0]?.picture?.original?.url} />
+        <UserIcon link={true} selected={openPicker} href={profiles.data?.profiles.items[0]?.picture?.original?.url} onClick={() => setPicker(!openPicker)} />
     </>
     : <Button onClick={connectWallet} >Connect Wallet</Button>
     }

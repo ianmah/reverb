@@ -33,3 +33,7 @@ export const toHex = (num) => {
     const val = Number(num);
     return "0x" + val.toString(16);
 };
+
+export const sleep = (milliseconds) => {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  };
