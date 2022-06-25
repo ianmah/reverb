@@ -6,6 +6,7 @@ const theme = {
     primaryHover: '#a100ff',
     border: '#8300d0 2px solid',
     background: 'linear-gradient(140deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 50%, rgba(76,13,113,1) 100%)',
+    lightBackground: '#eeeeee18',
     text: '#eee',
     textLight: '#fff',
     greyed: '#747c90',
