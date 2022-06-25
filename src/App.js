@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 
@@ -7,15 +7,19 @@ import Wallet from "./components/Wallet";
 import ApolloProvider from "./components/Apollo";
 import GlobalStyle from "./theme/GlobalStyle";
 import ThemeProvider from "./theme/ThemeProvider";
+import VideoJS from './components/Video'
+import Upload from "./components/Upload";
 
 function App() {
+
     return (
         <WalletContextProvider>
             <ApolloProvider>
                 <ThemeProvider>
                     <GlobalStyle />
                     <Wallet />
-                    GM
+                    {/* <VideoJS /> */}
+                    <Upload />
                 </ThemeProvider>
             </ApolloProvider>
         </WalletContextProvider>
