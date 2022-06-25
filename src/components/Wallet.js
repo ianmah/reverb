@@ -253,6 +253,8 @@ function Wallet({ }) {
       connectWallet();
   }}, [])
 
+  console.log(wallet)
+
   return (
     <WalletContainer>
     { wallet.signer
