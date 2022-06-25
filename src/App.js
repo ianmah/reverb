@@ -67,6 +67,7 @@ function App() {
                             </Route>
                             <Route path="/" element={<>
                                 <h1>Home</h1>
+                                <Upload />
                             </>}/>
                         </Routes>
                     </Container>

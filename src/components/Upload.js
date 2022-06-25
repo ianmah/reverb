@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import styled from 'styled-components'
 import axios from 'axios';
 import Button from './Button';
+import { upload } from '@testing-library/user-event/dist/upload';
 require("dotenv").config();
 
 const FileInput = styled.input`
@@ -53,33 +54,51 @@ function Upload() {
             selectedFile.name
         );
 
-        const uploadResponse = await fetch("https://livepeer.studio/api/asset/request-upload", {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${process.env.REACT_APP_LP_API_KEY}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    name: "Example name",
-                }),
-            }
-        );
+        const linkResponse = await fetch("https://livepeer.studio/api/asset/request-upload", {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${process.env.REACT_APP_LP_API_KEY}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: selectedFile.name,
+            }),
+        });
         console.log("Grabbing upload link")
-        const uploadData = await uploadResponse.json();
-        console.log("Upload Data", uploadData);
+        const linkData = await linkResponse.json();
+        console.log("Link Data", linkData);
+        const ASSET_ID = linkData.asset.id
 
         console.log("Uploading to Livepeer")
-        const videoResponse = await fetch(uploadData.url, {
-                method: 'PUT',
-                headers: {
-                    Authorization: `Bearer ${process.env.REACT_APP_LP_API_KEY}`,
-                    "Content-Type": "video/mp4",
-                },
-                body: selectedFile
+        const uploadResponse = await fetch(linkData.url, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${process.env.REACT_APP_LP_API_KEY}`,
+                "Content-Type": "video/mp4",
+            },
+            body: selectedFile
         });
-        console.log("Video Response", videoResponse)
-        const videoData = await videoResponse.json()
-        console.log("Video Data", videoData);
+        console.log(uploadResponse.headers.get("Content-Type"))
+        // const uploadData = await uploadResponse.json()
+        // console.log("Upload Response", uploadData)
+        console.log("Upload Response", uploadResponse)
+        console.log("Upload Response", uploadResponse.data)
+        console.log("Upload Response", uploadResponse.body)
+        console.log("Uploaded to Livepeer")
+
+        const videoResponse = await fetch(`https://livepeer.studio/api/asset/${ASSET_ID}`, {
+            method: 'GET',
+            headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_LP_API_KEY}`,
+            },
+        });
+        const videoResponseData = await videoResponse.json()
+        console.log("Video Response", videoResponseData)
+        const playbackId = videoResponseData.playbackId
+        // console.log(JSON.stringify(videoResponse.data));
+
+        // const videoData = await videoResponse.json()
+        // console.log("Video Data", videoData);
 
         // console.log("The nftmetadataURL ", data["nftMetadataGatewayUrl"])
 
@@ -91,6 +110,7 @@ function Upload() {
         // console.log("VideoNFTMetaData :", vidNftData)
 
         setVideoUploading(false)
+        setSelectedFile("")
 
 
         // console.log(data);
@@ -112,6 +132,13 @@ function Upload() {
                         <CustomLabel htmlFor="file">Select Video</CustomLabel>
                     </div>}
             </InputWrapper>
+            <iframe
+                src="https://lvpr.tv?v=${playbackId}"
+                frameborder="0"
+                allowfullscreen
+                allow="autoplay; encrypted-media; picture-in-picture"
+                sandbox="allow-scripts">
+            </iframe>
         </>
     )
 }
