@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /video/.venv
+/video/audio-visualizer-python
 
 # testing
 /coverage
