@@ -92,4 +92,29 @@ export default createGlobalStyle`
       border: ${p=>p.theme.border};
     }
   }
+  .plyr--video {
+    margin-top: -4em;
+    width: 100vw !important;
+    height: 80vh !important;
+  }
+  .plyr__controls {
+    opacity: 0;
+  }
+  button[data-plyr="play"] {
+    position: absolute;
+    left: 50%;
+    z-index: 1000;
+  }
+  button[data-plyr="fullscreen"] {
+    display: none !important;
+  }
+  button[data-plyr="pip"] {
+    display: none !important;
+  }
+  .plyr__volume {
+    display: none !important;
+  }
+  .plyr__menu {
+    display: none !important;
+  }
 `

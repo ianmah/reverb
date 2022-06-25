@@ -56,13 +56,15 @@ function App() {
                     <Nav>
                         <Wallet />
                     </Nav>
+                    <Routes>
+                        <Route path="song" element={<Outlet />}>
+                            <Route path=":id" element={<Song />} />
+                        </Route>
+                    </Routes>
                     
                     <Container>
                         <Routes>
                             <Route path="new-artist" element={<NewArtist/>}/>
-                            <Route path="song" element={<Outlet />}>
-                                <Route path=":id" element={<Song />} />
-                            </Route>
                             <Route path="/" element={<>
                                 <h1>Home</h1>
                             </>}/>
