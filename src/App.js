@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { WalletContextProvider } from "./utils/wallet";
 import Wallet from "./components/Wallet";
 import ApolloProvider from "./components/Apollo";
+import NewArtist from "./pages/NewArtist";
 import GlobalStyle from "./theme/GlobalStyle";
 import ThemeProvider from "./theme/ThemeProvider";
 
@@ -16,6 +17,9 @@ function App() {
                     <GlobalStyle />
                     <Wallet />
                     GM
+                    <Routes>
+                        <Route path="new-artist" element={<NewArtist/>}/>
+                    </Routes>
                 </ThemeProvider>
             </ApolloProvider>
         </WalletContextProvider>
