@@ -6,11 +6,11 @@ import { useLazyQuery } from '@apollo/client'
 import Web3Modal from 'web3modal'
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
 import WalletConnectProvider from '@walletconnect/web3-provider'
-import { GET_PROFILES } from '../utils/queries'
+// import { GET_PROFILES } from '../utils/queries'
 import { CHAIN } from '../utils/constants'
 import { toHex } from '../utils/index'
 import avatar from '../assets/avatar.png'
-import WalletButton from './WalletButton'
+import Button from './Button'
 import Login from './Login'
 import LensHub from '../abi/LensHub.json'
 import { useWallet } from '../utils/wallet'
@@ -126,7 +126,7 @@ const Profile = ({ profile, currProfile, handleClick }) => {
 
 function Wallet({ currProfile, setProfile }) {
   const { wallet, setWallet, setLensHub, authToken } = useWallet()
-  const [getProfiles, profiles] = useLazyQuery(GET_PROFILES)
+  // const [getProfiles, profiles] = useLazyQuery(GET_PROFILES)
   const [openPicker, setPicker] = useState(false)
 
   const handleSelect = (profile) => {
@@ -144,26 +144,26 @@ function Wallet({ currProfile, setProfile }) {
     if (!authToken) return;
     if (!wallet.address) return;
     // console.log("wallet", wallet)
-    getProfiles({
-      variables: {
-        request: {
-          // profileIds?: string[];
-          ownedBy: [wallet.address]
-          // handles?: string[];
-          // whoMirroredPublicationId?: string;
-        },
-      },
-     })
+    // getProfiles({
+    //   variables: {
+    //     request: {
+    //       // profileIds?: string[];
+    //       ownedBy: [wallet.address]
+    //       // handles?: string[];
+    //       // whoMirroredPublicationId?: string;
+    //     },
+    //   },
+    //  })
 
   }, [wallet.address, authToken])
 
-  useEffect(() => {
-    if (!profiles.data) return
-    // console.log(profiles.data.profiles.items)
+  // useEffect(() => {
+  //   if (!profiles.data) return
+  //   // console.log(profiles.data.profiles.items)
 
-    setProfile(profiles.data.profiles.items[0])
+  //   setProfile(profiles.data.profiles.items[0])
 
-  }, [profiles.data])
+  // }, [profiles.data])
 
   const providerOptions = {
     coinbasewallet: {
@@ -260,9 +260,9 @@ function Wallet({ currProfile, setProfile }) {
           <AccountPicker show={openPicker}>
           { authToken
             ? <>
-              {
+              {/* {
                 profiles.data?.profiles.items.map((profile) => <Profile key={profile.id} profile={profile} currProfile={currProfile} handleClick={handleSelect} />)
-              }
+              } */}
               { CHAIN === 'polygon'
               ? <StyledA href='https://claim.lens.xyz/' target='_blank' rel='noopener noreferrer'>
                 <StyledProfile onClick={() => handleNew()}>
@@ -282,9 +282,9 @@ function Wallet({ currProfile, setProfile }) {
           }
         </AccountPicker>
         <Address>{wallet.address.substring(0, 6)}...{wallet.address.substring(38, wallet.address.length)}</Address>
-        <UserIcon onClick={() => setPicker(!openPicker)} link={true} selected={openPicker} href={profiles.data?.profiles.items[0]?.picture?.original?.url} />
+        {/* <UserIcon onClick={() => setPicker(!openPicker)} link={true} selected={openPicker} href={profiles.data?.profiles.items[0]?.picture?.original?.url} /> */}
     </>
-    : <WalletButton onClick={connectWallet} >Connect Wallet</WalletButton>
+    : <Button onClick={connectWallet} >Connect Wallet</Button>
     }
   </WalletContainer>
   );
