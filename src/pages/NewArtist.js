@@ -14,7 +14,6 @@ const Label = styled.label`
 
 function NewArtist({ ...props }) {
     const { wallet } = useWallet()
-    console.log(wallet)
 
     const pollTx = async (resp) => {
 

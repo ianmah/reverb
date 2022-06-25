@@ -2,9 +2,9 @@ import React from 'react'
 import { ThemeProvider } from 'styled-components'
 
 const theme = {
-    primary: '#F28A56',
-    primaryHover: '#FF9C7D',
-    border: '#F28A56 2px solid',
+    primary: '#8300d0',
+    primaryHover: '#a100ff',
+    border: '#8300d0 2px solid',
     background: 'linear-gradient(140deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 50%, rgba(76,13,113,1) 100%)',
     text: '#eee',
     textLight: '#fff',

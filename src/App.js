@@ -9,17 +9,37 @@ import NewArtist from "./pages/NewArtist";
 import GlobalStyle from "./theme/GlobalStyle";
 import ThemeProvider from "./theme/ThemeProvider";
 
+const Container = styled.div`
+    max-width: 500px;
+    margin: auto;
+    background: #eeeeee18;
+    padding: 1em 2em 2em 2em;
+    border-radius: 1em;
+`
+
+const Nav = styled.div`
+    display: flex;
+    justify-content: end;
+    padding: 0.5em;
+    margin-bottom: 1em;
+`
+
 function App() {
     return (
         <WalletContextProvider>
             <ApolloProvider>
                 <ThemeProvider>
                     <GlobalStyle />
-                    <Wallet />
-                    GM
-                    <Routes>
-                        <Route path="new-artist" element={<NewArtist/>}/>
-                    </Routes>
+
+                    <Nav>
+                        <Wallet />
+                    </Nav>
+                    
+                    <Container>
+                        <Routes>
+                            <Route path="new-artist" element={<NewArtist/>}/>
+                        </Routes>
+                    </Container>
                 </ThemeProvider>
             </ApolloProvider>
         </WalletContextProvider>
