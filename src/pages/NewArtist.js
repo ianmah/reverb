@@ -12,6 +12,9 @@ const Label = styled.label`
     display: block;
 `
 
+// const superTokenABI = require("@superfluid-finance/ethereum-contracts/build/contracts/ISuperToken.json").abi;
+
+
 function NewArtist({ ...props }) {
     const { wallet } = useWallet()
 

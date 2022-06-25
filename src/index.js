@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { WalletContextProvider } from "./utils/wallet";
 ReactDOM.render(
   <React.StrictMode>
+  <WalletContextProvider>
     <BrowserRouter>
       <App />
     </BrowserRouter>
+  </WalletContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -49,10 +49,9 @@ export default createGlobalStyle`
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
   }
   html {
-
+    background: black;
     background: ${p => p.theme.background};
-    background-repeat: no-repeat;
-    height: 100%;
+    height: 100vh;
   }
   body {
     margin: 0;
@@ -92,5 +91,30 @@ export default createGlobalStyle`
       outline: none;
       border: ${p=>p.theme.border};
     }
+  }
+  .plyr--video {
+    margin-top: -4em;
+    width: 100vw !important;
+    height: 80vh !important;
+  }
+  .plyr__controls {
+    opacity: 0;
+  }
+  button[data-plyr="play"] {
+    position: absolute;
+    left: 50%;
+    z-index: 1000;
+  }
+  button[data-plyr="fullscreen"] {
+    display: none !important;
+  }
+  button[data-plyr="pip"] {
+    display: none !important;
+  }
+  .plyr__volume {
+    display: none !important;
+  }
+  .plyr__menu {
+    display: none !important;
   }
 `
