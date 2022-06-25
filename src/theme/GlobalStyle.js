@@ -80,4 +80,17 @@ export default createGlobalStyle`
       color: ${(p) => p.theme.primaryHover};
     }
   }
+  input {
+    padding: 0.4em 0.5em;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background: ${p=>p.theme.lightBackground};
+    border: #00000000 2px solid;
+    color: white;
+    font-family: ${p => p.theme.font};
+    &:focus{
+      outline: none;
+      border: ${p=>p.theme.border};
+    }
+  }
 `

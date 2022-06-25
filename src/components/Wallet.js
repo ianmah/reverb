@@ -23,13 +23,13 @@ const WalletContainer = styled.div`
 `
 
 const Address = styled.code`
-  box-shadow: 0px 4px 12px rgba(236, 176, 178, 0.5);
+  box-shadow: 0px 2px 10px rgba(201, 107, 255, 0.5);
   border-radius: 100px;
   height: 34px;
   display: flex;
   align-items: center;
   padding: 0 .6em;
-  background: white;
+  background: ${p=>p.theme.lightBackground};
 `
 
 export const UserIcon = styled.div`
