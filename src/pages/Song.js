@@ -62,7 +62,7 @@ function Song({ ...props }) {
 
     useEffect(() => {
         const playVid = async () => {
-            await sleep(4000)
+            await sleep(1000)
             videoRef?.current.play()
             console.log('playing', videoRef?.current)
         }
