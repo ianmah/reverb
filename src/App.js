@@ -19,6 +19,8 @@ import ThemeProvider from "./theme/ThemeProvider";
 import NewSong from "./pages/NewSong";
 import UserProfile from "./pages/UserProfile"
 import Home from "./pages/Home";
+import Artist from "./pages/Artist";
+import bonnyb from './assets/artists/bonnyb.jpg'
 
 const StyledLink = styled(Link)`
     color: white;
@@ -77,15 +79,13 @@ function App() {
                         <Route path="song" element={<Outlet />}>
                             <Route path=":id" element={<Song />} />
                         </Route>
+                        <Route path="new-song" element={<Container><NewSong profile={profile}/></Container>}/>
+                        <Route path="artist" element={<Container><Artist name={"Bonny B"} link={"bonnyb.test"} image={bonnyb}/></Container>}/>
+                        <Route path="new-artist" element={<Container><NewArtist/></Container>}/>
+                        <Route path="/" element={<Container><Home/></Container>}/>
+                        <Route path="user" element={<Container><UserProfile  profile={profile} /></Container>}/>
+                        <Route path="wrap" element={<Container><Wrap/></Container>}/>
                     </Routes>
-                    
-                        <Routes>
-                            <Route path="new-song" element={<Container><NewSong profile={profile}/></Container>}/>
-                            <Route path="new-artist" element={<Container><NewArtist/></Container>}/>
-                            <Route path="/" element={<Container><Home/></Container>}/>
-                            <Route path="user" element={<Container><UserProfile  profile={profile} /></Container>}/>
-                            <Route path="wrap" element={<Container><Wrap/></Container>}/>
-                        </Routes>
                     
                     <BottomNav>
                         <StyledLink to="/">

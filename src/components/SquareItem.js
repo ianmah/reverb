@@ -31,7 +31,7 @@ function SquareItem({ image, title, ...props }) {
     return <>
         <Container>
             <Image src={image ?? defImage} height={55} width={55} />
-            <Title>{title}</Title>
+            {title && <Title>{title}</Title>}
         </Container>
     </>
 }
