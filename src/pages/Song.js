@@ -24,7 +24,6 @@ const Label = styled.label`
 `
 
 const Video = styled.video`
-    margin-top: -3em;
     width: 412px;
     max-width: 500px;
     height: 170vw;
@@ -46,7 +45,7 @@ const Info = styled.div`
     margin: auto;
     border-radius: 1em;
     padding: 3em;
-    width: 90vw;
+    width: 110vw;
     max-width: 410px;
     box-sizing: border-box;
     justify-content: space-evenly;
@@ -73,6 +72,7 @@ const Controls = styled.div`
 function Song({ ...props }) {
     const { wallet } = useWallet()
     const params = useParams()
+    const [views, setViews] = useState(7)
     const [paused, setPaused] = useState(false)
  
     const videoRef = useRef('')
@@ -86,10 +86,29 @@ function Song({ ...props }) {
         playVid()
     }, [])
 
+    useEffect(() => {
+        const seshviews = parseInt(window.sessionStorage.getItem('views')) || 0
+        setViews(views + seshviews)
+    }, [])
+
+    // useEffect(() => {
+    //     videoRef?.current?.onended((e) => {
+    //         window.sessionStorage.setItem('views', views)
+    //         setViews(views+1)
+    //         // What you want to do after the event
+    //     })
+    // }, [videoRef])
+
     console.log(params)
 
     return <Container>
-        <Video ref={videoRef} src={'https://livepeercdn.com/asset/92fd2hv0htxd5868/video'} autoplay loop/>
+        <Video ref={videoRef} src={'https://livepeercdn.com/asset/92fd2hv0htxd5868/video'} autoplay
+            onEnded={() => {
+                window.sessionStorage.setItem('views', views)
+                videoRef.current.play()
+                setViews(views+1)
+            }}
+        />
         <Info>
             <h2>City of Gods</h2>
             <p>Alicia Keys, Fivio Foreign, and Ye</p>
@@ -108,6 +127,8 @@ function Song({ ...props }) {
                 <Icon icon="fa-folder-plus" size="lg" />
             </Controls>
         </Info>
+
+        <code>{views} views</code>
     </Container>;
 
 }
