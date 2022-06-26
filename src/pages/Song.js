@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useLazyQuery, useMutation } from '@apollo/client'
 import { useWallet } from '../utils/wallet'
 import Button from '../components/Button'
+import Video from '../components/Video'
 import { sleep } from '../utils'
 
 
@@ -18,6 +19,7 @@ function Song({ ...props }) {
     console.log(params)
 
     return <>
+        <Video/> 
         <h1>SINGLE</h1>
     </>;
 

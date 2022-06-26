@@ -11,6 +11,7 @@ import Card from "./components/Card";
 import { useWallet } from "./utils/wallet";
 import Song from "./pages/Song";
 import NewArtist from "./pages/NewArtist";
+import Swap from "./pages/Swap";
 import Outlet from "./pages/Outlet";
 import GlobalStyle from "./theme/GlobalStyle";
 import ThemeProvider from "./theme/ThemeProvider";
@@ -58,17 +59,20 @@ function App() {
                     <Nav>
                         <Wallet />
                     </Nav>
+                    <Routes>
+                        <Route path="song" element={<Outlet />}>
+                            <Route path=":id" element={<Song />} />
+                        </Route>
+                    </Routes>
                     
                     <Container>
                         <Routes>
                             <Route path="new-artist" element={<NewArtist/>}/>
-                            <Route path="song" element={<Outlet />}>
-                                <Route path=":id" element={<Song />} />
-                            </Route>
                             <Route path="/" element={<>
                                 <h1>Home</h1>
                                 <Upload />
                             </>}/>
+                            <Route path="swap" element={<Swap/>}/>
                         </Routes>
                     </Container>
                     <BottomNav>

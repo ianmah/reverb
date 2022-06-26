@@ -12,6 +12,9 @@ const Label = styled.label`
     display: block;
 `
 
+// const superTokenABI = require("@superfluid-finance/ethereum-contracts/build/contracts/ISuperToken.json").abi;
+
+
 function NewArtist({ ...props }) {
     const { wallet } = useWallet()
 
@@ -38,6 +41,7 @@ function NewArtist({ ...props }) {
     }
 
     const onSubmit = async (values) => {
+        console.log(wallet)
         const { name, username, symbol, contractAddress } = values
         if (!contractAddress) {
             const req = await fetch(
