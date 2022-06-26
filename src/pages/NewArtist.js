@@ -41,6 +41,7 @@ function NewArtist({ ...props }) {
     }
 
     const onSubmit = async (values) => {
+        console.log(wallet)
         const { name, username, symbol, contractAddress } = values
         if (!contractAddress) {
             const req = await fetch(
