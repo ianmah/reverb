@@ -1,17 +1,34 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useWallet } from "../utils/wallet";
+import { useLazyQuery, useQuery } from "@apollo/client";
+import { GET_PROFILES, GET_PUBLICATIONS } from "../utils/queries";
+import { hexToDec } from "../utils";
 import Card from '../components/Card'
 import RoundImage from '../components/RoundImage'
 import SquareItem from '../components/SquareItem';
 import styled from 'styled-components'
 import Token from '../components/Token'
 import bao from '../assets/bao.png'
+import avatar from '../assets/avatar.png'
 import jayz from '../assets/jayz.jpg'
 import alicia from '../assets/alicia.jpg'
 import olivia from '../assets/olivia.jpg'
 
 const Container = styled.div`
+    margin-bottom: -1.5em;
 `
+const Icon = styled.div`
+    height: 96px;
+    width: 96px;
+    border: #fff 4px solid;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url(${p => p.href || avatar});
+    background-size: cover;
+    margin-bottom: -0.8em;
+`;
 
 const Label = styled.label`
     display: block;
@@ -33,17 +50,23 @@ const UserText = styled.h1`
     margin-left: 1em;
     color: #FFFFFF;
 `
+const Handle = styled.h4`
+    font-weight: normal;
+    margin-top: -0.5em;
+    margin-left: 1.75em;
+    padding-bottom: 1em;
+`;
 
 const MinutesListenedText = styled.p`
     width: 100%;
     font-family: 'Satoshi';
     font-style: normal;
     font-weight: 500;
-    font-size: 10px;
+    font-size: 12px;
     line-height: 14px;
     color: #FFFFFF;
-    margin-top: -2em;
-    margin-left: 3em;
+    margin-top: -1.5em;
+    margin-left: 2.5em;
 `
 
 const HeaderText = styled.h1`
@@ -55,6 +78,13 @@ const HeaderText = styled.h1`
 
     color: #FFFFFF;
 `
+const Stats = styled.div`
+    width: 330px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-top: -1.5em;
+`;
 
 const Tokens = styled.div`
     display: block;
@@ -77,19 +107,25 @@ const CollectionRow = styled.div`
 
 const CollectionText = styled.p``
 
-function UserProfile({ ...props }) {
+function UserProfile({ profile }) {
     const { wallet, provider } = useWallet()
+    console.log(profile)
     
     return <Container>
         <Header>
-            <RoundImage width={96} height={96} src={bao} />
+            <Icon href={profile.picture?.original?.url}/>
             <UserContainer>
-                <UserText>Vitalik Bieber</UserText>
+                <UserText>{profile.name || profile.handle}</UserText>
+                <Handle>@{profile?.handle}</Handle>
                 <MinutesListenedText>293,012 Minutes Listened</MinutesListenedText>
             </UserContainer>
-
         </Header>
-
+        <Stats>
+            <p>{profile.stats?.totalFollowers} followers</p>
+            <p>{profile.stats?.totalFollowing} following</p>
+            <p>{profile.stats?.totalPublications} posts</p>
+            <p>{profile.stats?.totalCollects} collects</p>
+        </Stats>
         <Tokens>
             <HeaderText>Tokens Collected</HeaderText>
             <Token image={jayz} abbr={"$JZT"} name={"JAYZ.lens"} amount={"221"}></Token>

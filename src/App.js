@@ -84,7 +84,7 @@ function App() {
                             <Route path="/" element={<>
                                 <h1>Home</h1>
                             </>}/>
-                            <Route path="user" element={<UserProfile />}/>
+                            <Route path="user" element={<UserProfile profile={profile}/>}/>
                             <Route path="wrap" element={<Wrap/>}/>
                             <Route path="new-song" element={<NewSong/>}/>
                         </Routes>
