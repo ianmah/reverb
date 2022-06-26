@@ -10,6 +10,7 @@ import artist5 from '../assets/artists/artist5.png'
 import artist6 from '../assets/artists/artist6.png'
 import artist7 from '../assets/artists/artist7.png'
 import artist8 from '../assets/artists/artist8.png'
+import ye from '../assets/artists/ye.jpg'
 import visualizer1 from '../assets/visualizers/visualizer1.png'
 import visualizer2 from '../assets/visualizers/visualizer2.png'
 import visualizer3 from '../assets/visualizers/visualizer3.png'
@@ -79,7 +80,7 @@ function Home({ ...props }) {
 
         <Collection>
             <HeaderText>{"Be an Early Listener"}</HeaderText>
-            <NewSongDetailed image={artist1} song={"Empire State of Heart"} artist={"JAYZ.lens ft Alicia.lens"} time={"1d 12h 47m"}/>
+            <NewSongDetailed image={ye} song={"Empire State of Heart"} artist={"JAYZ.lens ft Alicia.lens"} time={"1d 12h 47m"}/>
             <NewSongDetailed image={artist8} song={"fresh new song"} artist={"freshnewartist.lens"} time={"0d 06h 52m"}/>            
         </Collection>
 
