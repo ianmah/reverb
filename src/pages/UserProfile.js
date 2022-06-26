@@ -19,7 +19,7 @@ const Label = styled.label`
 
 const Header = styled.div`
     display: flex;
-    margin-bottom: 1.5em;
+    margin-bottom: 2em;
 `
 
 const UserText = styled.h1`
