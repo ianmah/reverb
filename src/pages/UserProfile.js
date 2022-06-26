@@ -40,6 +40,7 @@ const Label = styled.label`
 
 const Header = styled.div`
     display: flex;
+    margin-top: 0.5em;
     margin-bottom: 2em;
 `
 
@@ -50,7 +51,6 @@ const UserText = styled.h1`
     font-weight: 600;
     font-size: 28px;
     line-height: 34px;
-    margin-top: 1em;
     margin-left: 1em;
     color: #FFFFFF;
 `
@@ -79,7 +79,7 @@ const HeaderText = styled.h1`
     font-weight: 600;
     font-size: 22px;
     line-height: 27px;
-
+    margin-top: 1em;
     color: #FFFFFF;
 `
 const Stats = styled.div`
@@ -87,7 +87,8 @@ const Stats = styled.div`
     display: flex;
     justify-content: space-between;
     font-size: 14px;
-    margin-top: -1.5em;
+    margin-top: -1em;
+    margin-bottom: 1.5em;
 `;
 
 const Tokens = styled.div`
@@ -140,9 +141,9 @@ function UserProfile({ profile }) {
         <Collection>
             <HeaderText>{"Your Collection"}</HeaderText>
             <CollectionRow>
-                <Nft image={nft1} title="VIP Access" width={55}/>
-                <Nft image={nft2} title="Merch" width={55}/>
-                <Nft image={nft3} title="Early Access" width={55}/>
+                <Nft image={nft1} title="newartist.test" width={55}/>
+                <Nft image={nft2} title="JAYZ.test" width={55}/>
+                <Nft image={nft3} title="Dave.test" width={55}/>
             </CollectionRow>
         </Collection>
 

@@ -171,23 +171,23 @@ function Wallet({ setProfile }) {
       package: CoinbaseWalletSDK, // Required
       options: {
         appName: "reverb", // Required
-        infuraId: "6a436461eae543349fa0de6bc4152fb9", // Required
+        infuraId: "36c3cad35b8b4bfbbc9cd04b9eb65029", // Required
         rpc: "", // Optional if `infuraId` is provided; otherwise it's required
-        chainId: 137, // Optional. It defaults to 1 if not provided
+        chainId: 80001, // Optional. It defaults to 1 if not provided
         darkMode: false // Optional. Use dark theme, defaults to false
       }
     },
     walletconnect: {
       package: WalletConnectProvider, // required
       options: {
-        infuraId: "6a436461eae543349fa0de6bc4152fb9" // required
+        infuraId: "36c3cad35b8b4bfbbc9cd04b9eb65029" // required
       }
     }
   };
 
   const web3Modal = new Web3Modal({
-    network: "mainnet", // optional
-    cacheProvider: true, 
+    network: "mumbai", // optional
+    cacheProvider: false, 
     providerOptions // required
   });
 
@@ -211,49 +211,13 @@ function Wallet({ setProfile }) {
       // console.log({balanceInEth})
       setWallet({...wallet, signer, address, balanceInEth})
     })
-
-    const switchNetwork = async () => {
-      const chainId = CHAIN === 'polygon' ? toHex(137) : toHex(80001)
-      try {
-        await provider.provider.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: chainId }],
-        });
-      } catch (switchError) {
-        // This error code indicates that the chain has not been added to MetaMask.
-        if (switchError.code === 4902) {
-          const network = CHAIN === 'polygon' ? {
-            chainId: chainId,
-            chainName: "Polygon",
-            rpcUrls: ["https://polygon-rpc.com/"],
-            blockExplorerUrls: ["https://polygonscan.com/"],
-          } :
-          {
-            chainId: chainId,
-            chainName: "Polygon Mumbai",
-            rpcUrls: ["https://rpc-mumbai.maticvigil.com/"],
-            blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
-          }
-          try {
-            await provider.provider.request({
-              method: "wallet_addEthereumChain",
-              params: [network],
-            });
-          } catch (addError) {
-            throw addError;
-          }
-        }
-      }
-    };
-
-    switchNetwork()
   }
 
   // hook to automatically connect to the cached provider
-  useEffect(() => {
-    if (web3Modal.cachedProvider) {
-      connectWallet();
-  }}, [])
+  // useEffect(() => {
+  //   if (web3Modal.cachedProvider) {
+  //     connectWallet();
+  // }}, [])
 
   return (
     <WalletContainer>
