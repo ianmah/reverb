@@ -12,7 +12,7 @@ const FileInput = styled.input`
     position: absolute;
 `
 const InputWrapper = styled.div`
-    float: right;
+
 `
 const CustomLabel = styled.label`
     border: none;
@@ -38,13 +38,13 @@ const CustomLabel = styled.label`
 const fs = require('fs')
 
 const Video = styled.video`
-    width: 100vw;
-    max-width: 500px;
-    height: 170vw;
-    max-height: 888px;
+    width: 75vw;
+    max-width: 370px;
+    height: 100vw;
+    max-height: 600px;
 `
 
-function Upload() {
+function Upload({ setVideoUrl }) {
     // Uploading Video
     const [videoUploading, setVideoUploading] = useState(false);
     const [selectedFile, setSelectedFile] = useState("");
@@ -73,6 +73,7 @@ function Upload() {
         console.log("Link Data", linkData);
         setTaskId(linkData.task.id)
         setPlaybackId(linkData.asset.playbackId)
+        setVideoUrl(linkData.asset.playbackId)
 
         console.log("Uploading to Livepeer")
         const uploadResponse = await fetch(linkData.url, {
@@ -123,6 +124,7 @@ function Upload() {
                         <CustomLabel htmlFor="file">Select Video</CustomLabel>
                     </div>}
             </InputWrapper>
+            <br/>
             {showPlayer && playbackId && finishedUpload && 
                 <Video src={`https://livepeercdn.com/asset/${playbackId}/video`} controls autoplay loop/>
             }

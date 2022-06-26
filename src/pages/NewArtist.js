@@ -97,11 +97,6 @@ function NewArtist({ ...props }) {
             const resp = await req.json()
             pollTx(resp, username)
         }
-
-
-
-
-
         return;
     }
     
