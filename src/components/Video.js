@@ -8,8 +8,8 @@ const PlyrComponent = ({playbackId}) => {
     const playerInstance = useRef();
 
     useLayoutEffect(() => {
-        // const source = `https://cdn.livepeer.com/hls/${playbackId}/index.m3u8`;
-        const source = `https://livepeercdn.com/asset/1d464iglk9i336dk/video`
+        const source = `https://lvpr.tv?v=${playbackId}`;
+        // const source = `https://livepeercdn.com/asset/1d464iglk9i336dk/video`
         playerInstance.current = new Plyr(video.current);
         const hls = new Hls();
         hls.loadSource(source);
@@ -26,7 +26,9 @@ const PlyrComponent = ({playbackId}) => {
         };
     }, []);
 
-    return <video id="player" ref={video} className="video-js" autoPlay={true} preload="auto"></video>;
+    return <div id="player" className="plyr__video-embed" autoPlay={true} preload="auto">
+        <iframe src={`https://lvpr.tv?v=fde8ly4658bemvob`} type="video/mp4"></iframe>
+    </div>;
 };
 
 export default PlyrComponent;
