@@ -13,6 +13,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 library.add(faPlayCircle, faStepForward, faStepBackward)
 
+const Container = styled.div`
+    max-width: 420px;
+    margin: auto;
+    margin-bottom: 6em;
+`
 
 const Label = styled.label`
     display: block;
@@ -23,11 +28,17 @@ const Video = styled.video`
     width: 412px;
     max-width: 500px;
     height: 170vw;
-    max-height: 888px;
+    max-height: 700px;
     box-sizing: border-box;
 `
 
 const Icon = styled(FontAwesomeIcon)`
+    transition: all 100ms;
+    &:hover {
+        color: ${p=>p.theme.primary};
+        cursor: pointer;
+        transform: scale(1.1);
+    }
 `
 
 const Controls = styled.div`
@@ -37,6 +48,7 @@ const Controls = styled.div`
     padding: 1em;
     display: flex;
     width: 90vw;
+    max-width: 400px;
     box-sizing: border-box;
     justify-content: space-evenly;
     align-items: center;
@@ -46,27 +58,29 @@ function Song({ ...props }) {
     const { wallet } = useWallet()
     const params = useParams();
  
-    const videoRef = useRef()
+    const videoRef = useRef('')
 
     useEffect(() => {
         const playVid = async () => {
-            await sleep(4000)
-            videoRef.current.play()
-            console.log('playing', videoRef.current)
+            await sleep(1000)
+            videoRef?.current.play()
+            console.log('playing', videoRef?.current)
         }
         playVid()
     }, [])
 
     console.log(params)
 
-    return <>
+    return <Container>
         <Video ref={videoRef} src={'https://livepeercdn.com/asset/92fd2hv0htxd5868/video'} autoplay loop/>
         <Controls>
             <Icon icon="fa-step-backward" size="3x" />
-            <Icon icon="fa-circle-play" size="5x" />
+            <Icon icon="fa-circle-play" size="5x" onClick={() => {
+                videoRef?.current.paused ? videoRef?.current.play() : videoRef?.current.pause()
+            }}/>
             <Icon icon="fa-step-forward" size="3x" />
         </Controls>
-    </>;
+    </Container>;
 
 }
 
