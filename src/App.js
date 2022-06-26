@@ -17,7 +17,7 @@ import Outlet from "./pages/Outlet";
 import GlobalStyle from "./theme/GlobalStyle";
 import ThemeProvider from "./theme/ThemeProvider";
 import VideoJS from './components/Video'
-import Upload from "./components/Upload";
+import NewSong from "./pages/NewSong";
 
 library.add(faHouse, faUser, faMagnifyingGlass, faSignOutAlt)
 
@@ -74,9 +74,9 @@ function App() {
                             <Route path="new-artist" element={<NewArtist/>}/>
                             <Route path="/" element={<>
                                 <h1>Home</h1>
-                                <Upload />
                             </>}/>
                             <Route path="wrap" element={<Wrap/>}/>
+                            <Route path="new-song" element={<NewSong/>}/>
                         </Routes>
                     </Container>
                     <BottomNav>
