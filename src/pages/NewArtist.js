@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Formik, Field, Form } from 'formik'
 import { useLazyQuery, useMutation } from '@apollo/client'
-import { GET_CHALLENGE, AUTHENTICATION } from '../utils/queries'
+import { CREATE_PROFILE, AUTHENTICATION } from '../utils/queries'
 import { useWallet } from '../utils/wallet'
 import Button from '../components/Button'
 import { sleep } from '../utils'
@@ -16,9 +16,11 @@ const Label = styled.label`
 
 
 function NewArtist({ ...props }) {
-    const { wallet } = useWallet()
+    const [createProfile, createProfileData] = useMutation(CREATE_PROFILE);
+    const [hashes, setHashes] = useState('')
+    const { wallet, setToast } = useWallet()
 
-    const pollTx = async (resp) => {
+    const pollTx = async (resp, username) => {
 
         while(true) {
             const reqGetContractAddr = await fetch(
@@ -34,14 +36,42 @@ function NewArtist({ ...props }) {
             await sleep(1500);
             if (respGetContractAddr.contractAddress){
                 console.log('success', respGetContractAddr.contractAddress)
+
+                const profileRequest = {
+                    handle: username,
+                };
+
+                // const bio = bioRef.current.value
+
+                createProfile({
+                    variables: {
+                        request: profileRequest,
+                    },
+                });
+                
                 return;
             }
         }
-
     }
 
+    useEffect(() => {
+        if (!createProfileData.data) return;
+        console.log(createProfileData.data);
+        if (createProfileData.data.createProfile.reason === 'HANDLE_TAKEN') {
+            setToast({ type: 'error', msg: 'Handle Taken' })
+        } else {
+            setToast({ type: 'success', msg: 'Profile created!' })
+        }
+    }, [createProfileData.data]);
+
     const onSubmit = async (values) => {
+        console.log(wallet)
         const { name, username, symbol, contractAddress } = values
+        if (!username) {
+            console.log("no handle");
+            return;
+        }
+
         if (!contractAddress) {
             const req = await fetch(
                 `https://api-eu1.tatum.io/v3/blockchain/token/deploy`,
@@ -65,7 +95,7 @@ function NewArtist({ ...props }) {
                 }
             );
             const resp = await req.json()
-            pollTx(resp)
+            pollTx(resp, username)
         }
 
 
@@ -100,6 +130,7 @@ function NewArtist({ ...props }) {
                 <Button type="submit">Create Reverb Profile</Button>
             </Form>
         </Formik>
+        <code>{hashes}</code>
     </>;
 }
 

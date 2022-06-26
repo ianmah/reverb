@@ -64,7 +64,7 @@ const AccountPicker = styled.div`
   width: 260px;
   border: ${p=>p.theme.border};
   border-radius: 16px;
-  background: #fff;
+  background: #17101b;
   z-index: -300;
   transition: all 300ms cubic-bezier(0.455, 0.030, 0.515, 0.955);
   ${p => !p.show && `
@@ -125,14 +125,14 @@ const Profile = ({ profile, handleClick }) => {
 }
 
 
-function Wallet({ }) {
+function Wallet({ setProfile }) {
   const { wallet, setWallet, setLensHub, authToken, setProvider } = useWallet()
   const [getProfiles, profiles] = useLazyQuery(GET_PROFILES)
   const [openPicker, setPicker] = useState(false)
 
   const handleSelect = (profile) => {
     console.log(profile)
-    // setProfile(profile)
+    setProfile(profile)
     setPicker(false)
   }
 
@@ -160,9 +160,9 @@ function Wallet({ }) {
 
   useEffect(() => {
     if (!profiles.data) return
-    // console.log(profiles.data.profiles.items)
+    console.log(profiles.data.profiles.items)
 
-    // setProfile(profiles.data.profiles.items[0])
+    setProfile(profiles.data.profiles.items[0])
     setPicker(false)
 
   }, [profiles.data])
