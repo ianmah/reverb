@@ -36,6 +36,8 @@ const Container = styled(Card)`
     margin-bottom: 4em;
     @media (max-width: 768px) {
       margin: 0.5em;
+      margin-bottom: 3.6em;
+      margin-top: 0em;
     }
 `
 
@@ -75,10 +77,10 @@ function App() {
                         <Route path="song" element={<Outlet />}>
                             <Route path=":id" element={<Song />} />
                         </Route>
-                        <Route path="new-song" element={<NewSong/>}/>
                     </Routes>
                     
                         <Routes>
+                            <Route path="new-song" element={<Container><NewSong/></Container>}/>
                             <Route path="new-artist" element={<Container><NewArtist/></Container>}/>
                             <Route path="/" element={<Container><Home/></Container>}/>
                             <Route path="user" element={<Container><UserProfile  profile={profile} /></Container>}/>

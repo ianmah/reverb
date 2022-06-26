@@ -21,7 +21,8 @@ const Title = styled.h1`
     font-size: 13px;
     line-height: 18px;
     text-align: center;
-    bottom: 35px;
+    margin-top: -2.5em;
+    margin-bottom: 2.5em;
 
     color: #FFFFFF;
 `

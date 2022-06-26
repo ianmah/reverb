@@ -51,6 +51,7 @@ export default createGlobalStyle`
   html {
     background: black;
     background: ${p => p.theme.background};
+    background-attachment: fixed;
     min-height: 100vh;
   }
   body {
