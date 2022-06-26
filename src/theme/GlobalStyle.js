@@ -51,7 +51,7 @@ export default createGlobalStyle`
   html {
     background: black;
     background: ${p => p.theme.background};
-    height: 100vh;
+    min-height: 100vh;
   }
   body {
     margin: 0;

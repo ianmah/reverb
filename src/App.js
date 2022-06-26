@@ -32,7 +32,7 @@ library.add(faHouse, faUser, faMagnifyingGlass, faSignOutAlt)
 const Container = styled(Card)`
     max-width: 500px;
     margin: auto;
-    margin-bottom: 3em;
+    margin-bottom: 4em;
     @media (max-width: 768px) {
       margin: 0.5em;
     }

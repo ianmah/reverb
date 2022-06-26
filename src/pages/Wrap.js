@@ -15,6 +15,8 @@ const Label = styled.label`
     display: block;
 `
 
+const SUPER_TOKEN = `0x5cdab858e5488406264a009a6b5252232e8e43ab`
+
 //id is a number randomly generated between 1 and a billion
 const id = Math.floor(Math.random() * 1000000000);
 
@@ -25,6 +27,7 @@ function Swap({ ...props }) {
     const [signer, setSigner] = useState();
 
     useEffect(() => {
+        if(!provider) return;
         const init = async() => {
             const sf = await Framework.create({
                 networkName: "mumbai",
@@ -45,7 +48,7 @@ function Swap({ ...props }) {
 
         }
         init()
-    }, [])
+    }, [provider])
 
     const createIndex = async ({ address="0x5cdab858e5488406264a009a6b5252232e8e43ab" }) => {
 
@@ -111,7 +114,7 @@ function Swap({ ...props }) {
         // );
 
         console.log('hi')
-        const DAIx = await sf.loadSuperToken('0x5cdab858e5488406264a009a6b5252232e8e43ab')
+        const DAIx = await sf.loadSuperToken(SUPER_TOKEN)
         console.log('hi2')
 
         try {
@@ -135,7 +138,108 @@ function Swap({ ...props }) {
             console.error(error);
         }
     }
+
+
+    const updateSubscription = async ({address, shares}) => {
+        try {
+            const updateSubscriptionOperation = sf.idaV1.updateSubscriptionUnits({
+            indexId: '664709469',
+            superToken: SUPER_TOKEN,
+            subscriber: address,
+            units: shares
+            // userData?: string
+            });
+    
+            console.log("Updating your Index...");
+    
+            await updateSubscriptionOperation.exec(signer);
+    
+            console.log(
+            `Congrats - you've just updated an Index!
+            Index ID: 664709469
+            Subscriber: ${address}
+            Units: ${shares} units
+            
+            `
+            );
+        } catch (error) {
+            console.error(error);
+        }
+    }
   
+    const distributeFunds = async ({ id="664709469", amount=1000, }) => {
+
+        try {
+            const distributeOperation = sf.idaV1.distribute({
+            indexId: id,
+            superToken: SUPER_TOKEN ,
+            amount
+            // userData?: string
+            });
+
+            console.log("Distributing funds to your index subscribers...");
+
+            await distributeOperation.exec(signer);
+
+            console.log(
+            `Congrats - you've just sent funds to your index!
+            Index ID: ${id}
+            Total Sent: ${amount}
+            `
+            );
+        } catch (error) {
+            console.error(error);
+        }
+
+    }
+  
+    const approveSubscription = async () => {
+
+        try {
+            const op = sf.idaV1.approveSubscription({
+            indexId: '664709469',
+            superToken: SUPER_TOKEN ,
+            publisher: '0x94Ef4640E4F5C3F66E2D185Fa05F097D5dc8069C'
+            // userData?: string
+            });
+
+            console.log("Approving...");
+
+            await op.exec(wallet.signer);
+
+            console.log(
+            `Approved
+            `
+            );
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const claim = async () => {
+
+        try {
+            const op = sf.idaV1.claim({
+            indexId: '664709469',
+            superToken: SUPER_TOKEN ,
+            publisher: '0x94Ef4640E4F5C3F66E2D185Fa05F097D5dc8069C',
+            subscriber: wallet.address,
+            // userData?: string
+            });
+
+            console.log("Approving...");
+
+            await op.exec(wallet.signer);
+
+            console.log(
+            `Approved
+            `
+            );
+        } catch (error) {
+            console.error(error);
+        }
+    
+    }
     
     return <>
         <h1>Wrappity Wrap</h1>
@@ -192,6 +296,80 @@ function Swap({ ...props }) {
                 <Field name="address" type="string" placeholder="0x5cdab858e5488406264a009a6b5252232e8e43ab" />
                 <br/>
                 <Button type="submit">Create index</Button>
+            </Form>
+        </Formik>
+        <br/><br/>
+
+        <h3>Update subscriptions</h3>
+
+        <Formik
+            initialValues={{ address: "", shares: "" }}
+            onSubmit={async (values) => {
+                await new Promise((resolve) => setTimeout(resolve, 500));
+                alert(JSON.stringify(values, null, 2));
+            }}
+            onSubmit={updateSubscription}
+        >
+            {/* 664709469 */}
+            <Form>
+                <Label>Wallet Address</Label>
+                <Field name="address" type="string" placeholder="0x..." />
+                <br/>
+                <Label>Shares</Label>
+                <Field name="shares" type="number" placeholder="1" />
+                <br/>
+                <Button type="submit">Update index</Button>
+            </Form>
+        </Formik>
+        <br/><br/>
+
+        <h3>Distribute Funds</h3>
+
+        <Formik
+            initialValues={{ amount: "" }}
+            onSubmit={async (values) => {
+                await new Promise((resolve) => setTimeout(resolve, 500));
+                alert(JSON.stringify(values, null, 2));
+            }}
+            onSubmit={distributeFunds}
+        >
+            <Form>
+                <Label>Amount</Label>
+                <Field name="amount" type="number" placeholder="1" />
+                <br/>
+                <Button type="submit">Distribute</Button>
+            </Form>
+        </Formik>
+        <br/><br/>
+
+        <h3>Approve approveSubscription</h3>
+
+        <Formik
+            initialValues={{}}
+            onSubmit={async (values) => {
+                await new Promise((resolve) => setTimeout(resolve, 500));
+                alert(JSON.stringify(values, null, 2));
+            }}
+            onSubmit={approveSubscription}
+        >
+            <Form>
+                <Button type="submit">Approve</Button>
+            </Form>
+        </Formik>
+        <br/><br/>
+
+        <h3>Claim tokens</h3>
+
+        <Formik
+            initialValues={{}}
+            onSubmit={async (values) => {
+                await new Promise((resolve) => setTimeout(resolve, 500));
+                alert(JSON.stringify(values, null, 2));
+            }}
+            onSubmit={claim}
+        >
+            <Form>
+                <Button type="submit">Claim</Button>
             </Form>
         </Formik>
     </>;
