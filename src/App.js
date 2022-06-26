@@ -19,6 +19,14 @@ import ThemeProvider from "./theme/ThemeProvider";
 import VideoJS from './components/Video'
 import NewSong from "./pages/NewSong";
 
+const StyledLink = styled(Link)`
+    color: white;
+    transition: all 200ms ease-in-out;
+    &:hover: {
+        color: ${p=>p.theme.primary};
+    }
+`
+
 library.add(faHouse, faUser, faMagnifyingGlass, faSignOutAlt)
 
 const Container = styled(Card)`
@@ -80,7 +88,9 @@ function App() {
                         </Routes>
                     </Container>
                     <BottomNav>
-                        <FontAwesomeIcon icon="fa-house" size="lg" />
+                        <StyledLink to="/">
+                            <FontAwesomeIcon icon="fa-house" size="lg" />
+                        </StyledLink>
                         <FontAwesomeIcon icon="fa-magnifying-glass" size="lg"/>
                         <FontAwesomeIcon icon="fa-user" size="lg"/>
                         <FontAwesomeIcon icon="fa-sign-out-alt" size="lg" onClick={() => {
