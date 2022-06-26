@@ -18,6 +18,7 @@ import GlobalStyle from "./theme/GlobalStyle";
 import ThemeProvider from "./theme/ThemeProvider";
 import VideoJS from './components/Video'
 import NewSong from "./pages/NewSong";
+import UserProfile from "./pages/UserProfile"
 
 const StyledLink = styled(Link)`
     color: white;
@@ -83,6 +84,7 @@ function App() {
                             <Route path="/" element={<>
                                 <h1>Home</h1>
                             </>}/>
+                            <Route path="user" element={<UserProfile />}/>
                             <Route path="wrap" element={<Wrap/>}/>
                             <Route path="new-song" element={<NewSong/>}/>
                         </Routes>
