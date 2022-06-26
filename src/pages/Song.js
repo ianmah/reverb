@@ -7,11 +7,11 @@ import Button from '../components/Button'
 import Upload from '../components/Upload'
 import { sleep } from '../utils'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPlayCircle, faPauseCircle, faStepBackward, faStepForward, faHeart, faFolderPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlayCircle, faPauseCircle, faStepBackward, faStepForward, faComment, faFolderPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
-library.add(faPlayCircle, faPauseCircle, faStepForward, faHeart, faStepBackward, faFolderPlus)
+library.add(faPlayCircle, faPauseCircle, faStepForward, faComment, faStepBackward, faFolderPlus)
 
 const Container = styled.div`
     max-width: 420px;
@@ -62,6 +62,7 @@ const Info = styled.div`
         margin: 0;
         margin-bottom: 1em;
     }
+    margin-bottom: 10em;
 `
 const Controls = styled.div`
     display: flex;
@@ -113,7 +114,7 @@ function Song({ ...props }) {
             <h2>City of Gods</h2>
             <p>Alicia Keys, Fivio Foreign, and Ye</p>
             <Controls>
-                <Icon icon="fa-heart" size="lg" />
+                <Icon icon="fa-comment" size="lg" />
                 <Icon icon="fa-step-backward" size="2x" />
                 {paused && <Icon icon="fa-circle-play" size="3x" onClick={() => {
                     videoRef?.current.paused ? videoRef?.current.play() : videoRef?.current.pause()
@@ -127,8 +128,14 @@ function Song({ ...props }) {
                 <Icon icon="fa-folder-plus" size="lg" />
             </Controls>
         </Info>
-
+        <br/>
+        <br/>
+        <br/>
         <code>{views} views</code>
+        <br/>
+        <code>your views: {views-2400}</code>
+        <br/>
+        <code>estimated $FIVIO earned: {(views-2400)/2}</code>
     </Container>;
 
 }
