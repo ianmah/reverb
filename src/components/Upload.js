@@ -1,11 +1,8 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import useInterval from '@use-it/interval';
 import styled from 'styled-components'
-import axios from 'axios';
 import Button from './Button';
-import { upload } from '@testing-library/user-event/dist/upload';
-import Video from './Video'
-import 'plyr/dist/plyr.css';
+import { sleep } from '../utils'
 require("dotenv").config();
 
 const FileInput = styled.input`
@@ -38,6 +35,14 @@ const CustomLabel = styled.label`
         outline: none;
     }
 `
+const fs = require('fs')
+
+const Video = styled.video`
+    width: 100vw;
+    max-width: 500px;
+    height: 170vw;
+    max-height: 888px;
+`
 
 function Upload() {
     // Uploading Video
@@ -48,8 +53,6 @@ function Upload() {
     const [playbackId, setPlaybackId] = useState("")
     const [taskId, setTaskId] = useState("")
     const [finishedUpload, setFinishedUpload] = useState(false)
-    const fs = require('fs')
-
 
     const videoUpload = async () => {
         setVideoUploading(true)
@@ -120,15 +123,10 @@ function Upload() {
                         <CustomLabel htmlFor="file">Select Video</CustomLabel>
                     </div>}
             </InputWrapper>
-            {showPlayer && playbackId && finishedUpload && <iframe
-                src={`https://lvpr.tv?v=${playbackId}`}
-                frameBorder="0"
-                allowFullScreen
-                allow="autoplay; encrypted-media;"
-                sandbox="allow-scripts">
-            </iframe> }
-            {/* {showPlayer && playbackId && finishedUpload && <Video playbackId={playbackId}/> }
-            <Video /> */}
+            {showPlayer && playbackId && finishedUpload && 
+                <Video src={`https://livepeercdn.com/asset/${playbackId}/video`} controls autoplay loop/>
+            }
+            
         </>
     )
 }

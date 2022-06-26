@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import styled from "styled-components";
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faHouse, faUser, faMagnifyingGlass, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faUser, faMagnifyingGlass, faSignOutAlt, faSquarePlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Wallet from "./components/Wallet";
@@ -16,7 +16,6 @@ import Wrap from "./pages/Wrap";
 import Outlet from "./pages/Outlet";
 import GlobalStyle from "./theme/GlobalStyle";
 import ThemeProvider from "./theme/ThemeProvider";
-import VideoJS from './components/Video'
 import NewSong from "./pages/NewSong";
 import UserProfile from "./pages/UserProfile"
 
@@ -28,7 +27,7 @@ const StyledLink = styled(Link)`
     }
 `
 
-library.add(faHouse, faUser, faMagnifyingGlass, faSignOutAlt)
+library.add(faHouse, faUser, faMagnifyingGlass, faSignOutAlt, faSquarePlus)
 
 const Container = styled(Card)`
     max-width: 500px;
@@ -43,7 +42,6 @@ const Nav = styled.div`
     display: flex;
     justify-content: end;
     padding: 0.5em;
-    margin-bottom: 1em;
 `
 
 const BottomNav = styled.div`
@@ -76,31 +74,37 @@ function App() {
                         <Route path="song" element={<Outlet />}>
                             <Route path=":id" element={<Song />} />
                         </Route>
+                        <Route path="new-song" element={<NewSong/>}/>
                     </Routes>
                     
-                    <Container>
                         <Routes>
-                            <Route path="new-artist" element={<NewArtist/>}/>
+                            <Route path="new-artist" element={<Container><NewArtist/></Container>}/>
                             <Route path="/" element={<>
                                 <h1>Home</h1>
                             </>}/>
-                            <Route path="user" element={<UserProfile profile={profile}/>}/>
-                            <Route path="wrap" element={<Wrap/>}/>
-                            <Route path="new-song" element={<NewSong/>}/>
+                            <Route path="user" element={<Container><UserProfile  profile={profile} /></Container>}/>
+                            <Route path="wrap" element={<Container><Wrap/></Container>}/>
                         </Routes>
-                    </Container>
+                    
                     <BottomNav>
                         <StyledLink to="/">
                             <FontAwesomeIcon icon="fa-house" size="lg" />
                         </StyledLink>
                         <FontAwesomeIcon icon="fa-magnifying-glass" size="lg"/>
-                        <FontAwesomeIcon icon="fa-user" size="lg"/>
-                        <FontAwesomeIcon icon="fa-sign-out-alt" size="lg" onClick={() => {
-                            window.sessionStorage.removeItem('lensToken')
-                            window.sessionStorage.removeItem('signature')
-                            setAuthToken('')
-                            console.log('logged out')
-                        }}/>
+                        <StyledLink to="/new-song">
+                            <FontAwesomeIcon icon="fa-square-plus" size="lg"/>
+                        </StyledLink>
+                        <StyledLink to="/user">
+                            <FontAwesomeIcon icon="fa-user" size="lg"/>
+                        </StyledLink>
+                        <StyledLink to="#">
+                            <FontAwesomeIcon icon="fa-sign-out-alt" size="lg" onClick={() => {
+                                window.sessionStorage.removeItem('lensToken')
+                                window.sessionStorage.removeItem('signature')
+                                setAuthToken('')
+                                console.log('logged out')
+                            }}/>
+                        </StyledLink>
                     </BottomNav>
                 </ThemeProvider>
             </ApolloProvider>

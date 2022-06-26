@@ -9,6 +9,7 @@ const Image = styled.img`
     border-radius: 4px;
     width: 106px;
     height: 106px;
+    opacity: 60%;
 `
 
 const Title = styled.h1`

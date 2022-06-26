@@ -109,11 +109,10 @@ const StyledLink = styled(Link)`
 
 const StyledLogin = styled(Login)`
   width: 100%;
-  background: white;
-  color: black;
+  background: #00000000;
   :hover {
-    background: white;
     color: ${p=>p.theme.primary};
+    background: #00000000;
   }
 `
 
