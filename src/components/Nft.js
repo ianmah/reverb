@@ -7,8 +7,8 @@ const Container = styled.div`
 
 const Image = styled.img`
     animation: spin 4s ease infinite;
-    width: 92px;
-    height: 109px;
+    width: ${props => props.width ?? "92px"};
+    height: ${props => props.height ?? "109px"};
 
     &:hover !important {
         animation: shiny 3s linear infinite;
@@ -41,11 +41,11 @@ const Title = styled.h1`
     left: 4px;
 `
 
-function Nft({ image, title, ...props }) {
+function Nft({ image, title, width, height, ...props }) {
     return <>
         <Container>
-            <Image src={image ?? defImage} height={55} width={55} />
-            <Title>{title}</Title>
+            <Image src={image ?? defImage} height={height} width={width} />
+            {title && <Title>{title}</Title>}
         </Container>
     </>
 }

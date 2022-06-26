@@ -140,9 +140,9 @@ function UserProfile({ profile }) {
         <Collection>
             <HeaderText>{"Your Collection"}</HeaderText>
             <CollectionRow>
-                <Nft image={nft1} title="VIP Access" />
-                <Nft image={nft2} title="Merch" />
-                <Nft image={nft3} title="Early Access" />
+                <Nft image={nft1} title="VIP Access" width={55}/>
+                <Nft image={nft2} title="Merch" width={55}/>
+                <Nft image={nft3} title="Early Access" width={55}/>
             </CollectionRow>
         </Collection>
 

@@ -82,9 +82,9 @@ function Home({ ...props }) {
         <Collection>
             <HeaderText>{"Be an Early Listener"}</HeaderText>
             <Link to="/song/0x12-123">
-            <NewSongDetailed image={ye} song={"Empire State of Heart"} artist={"JAYZ.lens ft Alicia.lens"} time={"1d 12h 47m"}/>
+            <NewSongDetailed image={ye} song={"Empire State of Heart"} artist={"JAYZ.test ft Alicia.test"} time={"1d 12h 47m"}/>
             </Link>
-            <NewSongDetailed image={artist8} song={"fresh new song"} artist={"freshnewartist.lens"} time={"0d 06h 52m"}/>            
+            <NewSongDetailed image={artist8} song={"fresh new song"} artist={"freshnewartist.test"} time={"0d 06h 52m"}/>            
         </Collection>
 
         <Collection>
