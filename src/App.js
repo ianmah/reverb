@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faHouse, faUser, faMagnifyingGlass, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import './App.css'
 import Wallet from "./components/Wallet";
 import ApolloProvider from "./components/Apollo";
 import Card from "./components/Card";
@@ -19,6 +19,7 @@ import ThemeProvider from "./theme/ThemeProvider";
 import VideoJS from './components/Video'
 import NewSong from "./pages/NewSong";
 import UserProfile from "./pages/UserProfile"
+import Home from "./pages/Home";
 
 const StyledLink = styled(Link)`
     color: white;
@@ -81,9 +82,7 @@ function App() {
                     <Container>
                         <Routes>
                             <Route path="new-artist" element={<NewArtist/>}/>
-                            <Route path="/" element={<>
-                                <h1>Home</h1>
-                            </>}/>
+                            <Route path="/" element={<Home/>} />
                             <Route path="user" element={<UserProfile />}/>
                             <Route path="wrap" element={<Wrap/>}/>
                             <Route path="new-song" element={<NewSong/>}/>

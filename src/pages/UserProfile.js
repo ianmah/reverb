@@ -3,12 +3,16 @@ import { useWallet } from "../utils/wallet";
 import Card from '../components/Card'
 import RoundImage from '../components/RoundImage'
 import SquareItem from '../components/SquareItem';
+import Nft from '../components/Nft'
 import styled from 'styled-components'
 import Token from '../components/Token'
 import bao from '../assets/bao.png'
 import jayz from '../assets/jayz.jpg'
 import alicia from '../assets/alicia.jpg'
 import olivia from '../assets/olivia.jpg'
+import nft1 from '../assets/nfts/nft1.png'
+import nft2 from '../assets/nfts/nft2.png'
+import nft3 from '../assets/nfts/nft3.png'
 
 const Container = styled.div`
 `
@@ -100,9 +104,9 @@ function UserProfile({ ...props }) {
         <Collection>
             <HeaderText>{"Your Collection"}</HeaderText>
             <CollectionRow>
-                <SquareItem title="VIP Access" />
-                <SquareItem title="Merch" />
-                <SquareItem title="Early Access" />
+                <Nft image={nft1} title="VIP Access" />
+                <Nft image={nft2} title="Merch" />
+                <Nft image={nft3} title="Early Access" />
             </CollectionRow>
         </Collection>
 
