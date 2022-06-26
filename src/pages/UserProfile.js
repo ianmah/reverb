@@ -132,9 +132,9 @@ function UserProfile({ profile }) {
         </Stats>
         <Tokens>
             <HeaderText>Tokens Collected</HeaderText>
-            <Token image={jayz} abbr={"$JZT"} name={"JAYZ.lens"} amount={"221"}></Token>
-            <Token image={alicia} abbr={"$AKT"} name={"AliciaKeys.lens"} amount={"22"}></Token>
-            <Token image={olivia} abbr={"$ORT"} name={"OliviaRodrigo.lens"} amount={"5"}></Token>
+            <Token image={jayz} abbr={"$JZT"} name={"JAYZ.test"} amount={"221"}></Token>
+            <Token image={alicia} abbr={"$AKT"} name={"AliciaKeys.test"} amount={"22"}></Token>
+            <Token image={olivia} abbr={"$ORT"} name={"OliviaRodrigo.test"} amount={"5"}></Token>
         </Tokens>
 
         <Collection>
