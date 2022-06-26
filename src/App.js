@@ -15,6 +15,8 @@ import Swap from "./pages/Swap";
 import Outlet from "./pages/Outlet";
 import GlobalStyle from "./theme/GlobalStyle";
 import ThemeProvider from "./theme/ThemeProvider";
+import VideoJS from './components/Video'
+import Upload from "./components/Upload";
 
 library.add(faHouse, faUser, faMagnifyingGlass, faSignOutAlt)
 
@@ -68,6 +70,7 @@ function App() {
                             <Route path="new-artist" element={<NewArtist/>}/>
                             <Route path="/" element={<>
                                 <h1>Home</h1>
+                                <Upload />
                             </>}/>
                             <Route path="swap" element={<Swap/>}/>
                         </Routes>
