@@ -7,9 +7,10 @@ const WalletContextProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(false);
   const [lensHub, setLensHub] = useState();
   const [provider, setProvider] = useState();
+  const [toast, setToast] = useState({});
 
   return (
-    <WalletContext.Provider value={{ wallet, setWallet, lensHub, setLensHub, authToken, setAuthToken, provider, setProvider }}>
+    <WalletContext.Provider value={{ wallet, setWallet, lensHub, setLensHub, authToken, setAuthToken, provider, setProvider, setToast, toast }}>
       {children}
     </WalletContext.Provider>
   );

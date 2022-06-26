@@ -8,10 +8,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Wallet from "./components/Wallet";
 import ApolloProvider from "./components/Apollo";
 import Card from "./components/Card";
+import Toast from "./components/Toast";
 import { useWallet } from "./utils/wallet";
 import Song from "./pages/Song";
 import NewArtist from "./pages/NewArtist";
-import Swap from "./pages/Swap";
+import Wrap from "./pages/Wrap";
 import Outlet from "./pages/Outlet";
 import GlobalStyle from "./theme/GlobalStyle";
 import ThemeProvider from "./theme/ThemeProvider";
@@ -50,14 +51,17 @@ const BottomNav = styled.div`
 `
 
 function App() {
-    const { setAuthToken } = useWallet()
+    const { setAuthToken, toast } = useWallet()
+    const [profile, setProfile] = useState({})
+
     return (
             <ApolloProvider>
                 <ThemeProvider>
                     <GlobalStyle />
+                    <Toast type={toast.type}>{toast.msg}</Toast>
 
                     <Nav>
-                        <Wallet />
+                        <Wallet setProfile={setProfile} profile={profile}/>
                     </Nav>
                     <Routes>
                         <Route path="song" element={<Outlet />}>
@@ -72,7 +76,7 @@ function App() {
                                 <h1>Home</h1>
                                 <Upload />
                             </>}/>
-                            <Route path="swap" element={<Swap/>}/>
+                            <Route path="wrap" element={<Wrap/>}/>
                         </Routes>
                     </Container>
                     <BottomNav>
