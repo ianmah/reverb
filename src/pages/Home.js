@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useWallet } from "../utils/wallet";
 import Coin from "../components/Coin"
 import styled from 'styled-components'
-import artist1 from '../assets/artists/artist1.png'
+import bonnyb from '../assets/artists/bonnyb.jpg'
 import artist2 from '../assets/artists/artist2.png'
 import artist3 from '../assets/artists/artist3.png'
 import artist4 from '../assets/artists/artist4.png'
@@ -65,7 +65,9 @@ function Home({ ...props }) {
             <HeaderText>{"Discover New Artists 👀"}</HeaderText>
             <NewSongCollection>
                 <NewSongRow>
-                    <NewSong image={artist7} song={"Bae"} artist={"yung money"}/>
+                    <Link to="/artist">
+                    <NewSong image={bonnyb} song={"Beans"} artist={"Bonny B"}/>
+                    </Link>
                     <NewSong image={artist2} song={"i miss u"} artist={"Sponge"}/>
                 </NewSongRow>
                 <NewSongRow>
