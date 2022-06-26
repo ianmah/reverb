@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import useInterval from '@use-it/interval';
 import styled from 'styled-components'
 import axios from 'axios';
 import Button from './Button';
@@ -41,8 +42,12 @@ function Upload() {
     const [videoUploading, setVideoUploading] = useState(false);
     const [selectedFile, setSelectedFile] = useState("");
     const [video, setVideo] = useState("")
-    const [videoNftMetadata, setVideoNftMetadata] = useState({})
+    const [showPlayer, setShowPlayer] = useState(false)
+    const [playbackId, setPlaybackId] = useState("")
+    const [taskId, setTaskId] = useState("")
+    const [finishedUpload, setFinishedUpload] = useState(false)
     const fs = require('fs')
+
 
     const videoUpload = async () => {
         setVideoUploading(true)
@@ -67,7 +72,8 @@ function Upload() {
         console.log("Grabbing upload link")
         const linkData = await linkResponse.json();
         console.log("Link Data", linkData);
-        const ASSET_ID = linkData.asset.id
+        setTaskId(linkData.task.id)
+        setPlaybackId(linkData.asset.playbackId)
 
         console.log("Uploading to Livepeer")
         const uploadResponse = await fetch(linkData.url, {
@@ -78,23 +84,12 @@ function Upload() {
             },
             body: selectedFile
         });
-        console.log(uploadResponse.headers.get("Content-Type"))
+
         // const uploadData = await uploadResponse.json()
         // console.log("Upload Response", uploadData)
         console.log("Upload Response", uploadResponse)
-        console.log("Upload Response", uploadResponse.data)
-        console.log("Upload Response", uploadResponse.body)
         console.log("Uploaded to Livepeer")
 
-        const videoResponse = await fetch(`https://livepeer.studio/api/asset/${ASSET_ID}`, {
-            method: 'GET',
-            headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_LP_API_KEY}`,
-            },
-        });
-        const videoResponseData = await videoResponse.json()
-        console.log("Video Response", videoResponseData)
-        const playbackId = videoResponseData.playbackId
         // console.log(JSON.stringify(videoResponse.data));
 
         // const videoData = await videoResponse.json()
@@ -108,7 +103,21 @@ function Upload() {
 
         // setVideoNftMetadata(vidNftData)
         // console.log("VideoNFTMetaData :", vidNftData)
-
+        
+        // while (!finishedUpload) {
+        //     const taskResponse = await fetch(`https://livepeer.studio/api/task/${taskId}`, {
+        //             method: "GET",
+        //             headers: {
+        //                 Authorization: `Bearer ${process.env.REACT_APP_LP_API_KEY}`,
+        //             },
+        //     })
+        //     const taskData = await taskResponse.json()
+        //     if (taskData.status.phase == "completed") {
+        //         setFinishedUpload(true)
+        //     }
+        //     setTimeout(1000)
+        // }
+        setShowPlayer(true)
         setVideoUploading(false)
         setSelectedFile("")
 
@@ -120,6 +129,24 @@ function Upload() {
         // setVideo(`https://ipfs.io/${nftMetadata.properties.video.replace(":", "")}`)
 
     }
+
+    useInterval(async () => {
+        if (taskId) {
+            const taskResponse = await fetch(`https://livepeer.studio/api/task/${taskId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${process.env.REACT_APP_LP_API_KEY}`,
+                },
+            })
+            const taskData = await taskResponse.json()
+    
+            if (taskData.status.phase == "completed") {
+                setFinishedUpload(true)
+                return
+            }
+        }
+
+    }, finishedUpload ? null : 1000)
     
     return (
         <>
@@ -132,13 +159,13 @@ function Upload() {
                         <CustomLabel htmlFor="file">Select Video</CustomLabel>
                     </div>}
             </InputWrapper>
-            <iframe
-                src="https://lvpr.tv?v=${playbackId}"
-                frameborder="0"
-                allowfullscreen
+            {showPlayer && playbackId && finishedUpload && <iframe
+                src={`https://lvpr.tv?v=${playbackId}`}
+                frameBorder="0"
+                allowFullScreen
                 allow="autoplay; encrypted-media; picture-in-picture"
                 sandbox="allow-scripts">
-            </iframe>
+            </iframe> }
         </>
     )
 }
