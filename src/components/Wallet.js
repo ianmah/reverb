@@ -173,21 +173,24 @@ function Wallet({ setProfile }) {
         appName: "reverb", // Required
         infuraId: "36c3cad35b8b4bfbbc9cd04b9eb65029", // Required
         rpc: "", // Optional if `infuraId` is provided; otherwise it's required
-        chainId: 80001, // Optional. It defaults to 1 if not provided
+        chainId: 1, // Optional. It defaults to 1 if not provided
         darkMode: false // Optional. Use dark theme, defaults to false
       }
     },
     walletconnect: {
       package: WalletConnectProvider, // required
       options: {
-        infuraId: "36c3cad35b8b4bfbbc9cd04b9eb65029" // required
+        infuraId: "36c3cad35b8b4bfbbc9cd04b9eb65029", // required
+        rpc: {
+          80001: "https://matic-mumbai.chainstacklabs.com"
+        }
       }
     }
   };
 
   const web3Modal = new Web3Modal({
     network: "mumbai", // optional
-    cacheProvider: false, 
+    cacheProvider: true, 
     providerOptions // required
   });
 
